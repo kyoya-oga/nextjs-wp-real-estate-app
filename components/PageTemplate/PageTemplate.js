@@ -1,16 +1,18 @@
 import BlockRenderer from "components/BlockRenderer/BlockRenderer";
 import MainMenu from "components/MainMenu/MainMenu";
-import React from "react";
+import { PageWrapper } from "context/page";
 
 export default function PageTemplate({
   blocks,
   mainMenuItems,
   callToActionButton,
+  featuredImage,
+  title,
 }) {
   return (
-    <div>
+    <PageWrapper value={{ title, featuredImage }}>
       <MainMenu callToActionButton={callToActionButton} items={mainMenuItems} />
       <BlockRenderer blocks={blocks} />
-    </div>
+    </PageWrapper>
   );
 }

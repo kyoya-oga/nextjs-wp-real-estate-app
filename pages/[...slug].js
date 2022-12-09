@@ -3,12 +3,20 @@ import client from "client";
 import PageTemplate from "components/PageTemplate/PageTemplate";
 import { getPageStaticProps } from "utils/getPageStaticProps";
 
-export default function Page({ blocks, mainMenuItems, callToActionButton }) {
+export default function Page({
+  blocks,
+  mainMenuItems,
+  callToActionButton,
+  featuredImage,
+  title,
+}) {
   return (
     <PageTemplate
       blocks={blocks}
       mainMenuItems={mainMenuItems}
       callToActionButton={callToActionButton}
+      featuredImage={featuredImage}
+      title={title}
     />
   );
 }
@@ -22,12 +30,17 @@ export const getStaticPaths = async () => {
             uri
           }
         }
+        properties {
+          nodes {
+            uri
+          }
+        }
       }
     `,
   });
 
   return {
-    paths: data.pages.nodes.map((page) => ({
+    paths: [...data.pages.nodes, ...data.properties.nodes].map((page) => ({
       params: {
         slug: page.uri.substring(1, page.uri.length).split("/"),
       },

@@ -4,6 +4,8 @@ import Columns from "components/Columns/Columns";
 import Cover from "components/Cover/Cover";
 import Heading from "components/Heading/Heading";
 import Paragraph from "components/Paragraph/Paragraph";
+import PostTitle from "components/PostTitle/PostTitle";
+import PropertySearch from "components/PropertySearch/PropertySearch";
 import Image from "next/image";
 import { theme } from "theme";
 
@@ -76,6 +78,20 @@ const BlockRenderer = ({ blocks }) => {
         return <BlockRenderer key={block.id} blocks={block.innerBlocks} />;
       }
 
+      case "core/post-title": {
+        return (
+          <PostTitle
+            key={block.id}
+            textAlign={block.attributes.textAlign}
+            level={block.attributes.level}
+          />
+        );
+      }
+
+      case "acf/propertysearch": {
+        return <PropertySearch key={block.id} />;
+      }
+
       case "core/image": {
         return (
           <Image
@@ -89,7 +105,7 @@ const BlockRenderer = ({ blocks }) => {
       }
 
       default: {
-        // console.log("BlockRenderer: Unknown block type", block);
+        console.log("BlockRenderer: Unknown block type", block);
         return null;
       }
     }
